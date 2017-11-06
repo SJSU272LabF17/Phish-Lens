@@ -12,6 +12,7 @@ PROJECT APPROACH
 
 Solution for users and clients by using machine learning to detect phishing sites and notify them. Use Pyspark to gather data sets and to apply algorithm over large datasets. 
 Some of the modules that we are going to be using:
+
 Whois API (or something similar), to fetch the domain info, reputation score, etc.
 HTML parsing library to detect form fields and POST destination.
 SendPulse / Twilio, to notify users/clients about possible phishing attack.
