@@ -1,4 +1,6 @@
-import re
+import regex as re
+import urllib
+
 def rule111_ip(url):
     # \b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b
     print 'rule01_ip function -> ' + url
@@ -71,14 +73,53 @@ def rule116_prefix(url):
 def rule117_subdomain(url):
     # \b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b
     print 'rule117_prefix function -> ' + url
-    regex = re.compile(r"(\.ac/|\.ad/|\.ae/|\.af/|\.ag/|\.ai/|\.al/|\.am/|\.an/|\.ao/|\.aq/|\.ar/|\.as/|\.at/|\.au/|\.aw/|\.ax/|\.az/|\.ba/|\.bb/|\.bd/|\.be/|\.bf/|\.bg/|\.bh/|\.bi/|\.bj/|\.bl/|\.bm/|\.bn/|\.bo/|\.br/|\.bs/|\.bt/|\.bv/|\.bw/|\.by/|\.bz/|\.ca/|\.cc/|\.cd/|\.cf/|\.cg/|\.ch/|\.ci/|\.ck/|\.cl/|\.cm/|\.cn/|\.co/|\.cr/|\.cu/|\.cv/|\.cx/|\.cy/|\.cz/|\.de/|\.dj/|\.dk/|\.dm/|\.do/|\.dz/|\.ec/|\.ee/|\.eg/|\.eh/|\.er/|\.es/|\.et/|\.eu/|\.fi/|\.fj/|\.fk/|\.fm/|\.fo/|\.fr/|\.ga/|\.gb/|\.gd/|\.ge/|\.gf/|\.gg/|\.gh/|\.gi/|\.gl/|\.gm/|\.gn/|\.gp/|\.gq/|\.gr/|\.gs/|\.gt/|\.gu/|\.gw/|\.gy/|\.hk/|\.hm/|\.hn/|\.hr/|\.ht/|\.hu/|\.id/|\.ie/|\.il/|\.im/|\.in/|\.io/|\.iq/|\.ir/|\.is/|\.it/|\.je/|\.jm/|\.jo/|\.jp/|\.ke/|\.kg/|\.kh/|\.ki/|\.km/|\.kn/|\.kp/|\.kr/|\.kw/|\.ky/|\.kz/|\.la/|\.lb/|\.lc/|\.li/|\.lk/|\.lr/|\.ls/|\.lt/|\.lu/|\.lv/|\.ly/|\.ma/|\.mc/|\.md/|\.me/|\.mg/|\.mh/|\.mk/|\.ml/|\.mm/|\.mn/|\.mo/|\.mp/|\.mq/|\.mr/|\.ms/|\.mt/|\.mu/|\.mv/|\.mw/|\.mx/|\.my/|\.mz/|\.na/|\.nc/|\.ne/|\.nf/|\.ng/|\.ni/|\.nl/|\.no/|\.np/|\.nr/|\.nu/|\.nz/|\.om/|\.pa/|\.pe/|\.pf/|\.pg/|\.ph/|\.pk/|\.pl/|\.pm/|\.pn/|\.pr/|\.ps/|\.pt/|\.pw/|\.py/|\.qa/|\.re/|\.ro/|\.rs/|\.ru/|\.rw/|\.sa/|\.sb/|\.sc/|\.sd/|\.se/|\.sg/|\.sh/|\.si/|\.sj/|\.sk/|\.sl/|\.sm/|\.sn/|\.so/|\.sr/|\.st/|\.su/|\.sv/|\.sy/|\.sz/|\.tc/|\.td/|\.tf/|\.tg/|\.th/|\.tj/|\.tk/|\.tl/|\.tm/|\.tn/|\.to/|\.tp/|\.tr/|\.tt/|\.tv/|\.tw/|\.tz/|\.ua/|\.ug/|\.uk/|\.um/|\.us/|\.uy/|\.uz/|\.va/|\.vc/|\.ve/|\.vg/|\.vi/|\.vn/|\.vu/|\.wf/|\.ws/|\.ye/|\.yt/|\.yu/|\.za/|\.zm/|\.zw/|\.aero/|\.asia/|\.biz/|\.cat/|\.com/|\.coop/|\.edu/|\.gov/|\.info/|\.int/|\.jobs/|\.mil/|\.mobi/|\.museum/|\.name/|\.net/|\.org/|\.pro/|\.tel/|\.travel/)(.*)")
-    matchObj = re.search(regex, url);
-    print matchObj
+    # regex = re.compile(r"(\.ac\/?|\.ad\/?)(.*)")
+    # matchObj = re.search(regex, url);
+    # print matchObj
+    # print matchObj.group()
 
+    # print matchObj.group(0)
+    # print matchObj.group(1)
+    # print matchObj.group(1)
+
+    regex2 = re.compile(r"(\.ac(\/?)|\.ad(\/?)|\.ae(\/?)|\.af(\/?)|\.ag(\/?)|\.ai(\/?)|\.al(\/?)|\.am(\/?)|\.an(\/?)|\.ao(\/?)|\.aq(\/?)|\.ar(\/?)|\.as(\/?)|\.at(\/?)|\.au(\/?)|\.aw(\/?)|\.ax(\/?)|\.az(\/?)|\.ba(\/?)|\.bb(\/?)|\.bd(\/?)|\.be(\/?)|\.bf(\/?)|\.bg(\/?)|\.bh(\/?)|\.bi(\/?)|\.bj(\/?)|\.bl(\/?)|\.bm(\/?)|\.bn(\/?)|\.bo(\/?)|\.br(\/?)|\.bs(\/?)|\.bt(\/?)|\.bv(\/?)|\.bw(\/?)|\.by(\/?)|\.bz(\/?)|\.ca(\/?)|\.cc(\/?)|\.cd(\/?)|\.cf(\/?)|\.cg(\/?)|\.ch(\/?)|\.ci(\/?)|\.ck(\/?)|\.cl(\/?)|\.cm(\/?)|\.cn(\/?)|\.co(\/?)|\.cr(\/?)|\.cu(\/?)|\.cv(\/?)|\.cx(\/?)|\.cy(\/?)|\.cz(\/?)|\.de(\/?)|\.dj(\/?)|\.dk(\/?)|\.dm(\/?)|\.do(\/?)|\.dz(\/?)|\.ec(\/?)|\.ee(\/?)|\.eg(\/?)|\.eh(\/?)|\.er(\/?)|\.es(\/?)|\.et(\/?)|\.eu(\/?)|\.fi(\/?)|\.fj(\/?)|\.fk(\/?)|\.fm(\/?)|\.fo(\/?)|\.fr(\/?)|\.ga(\/?)|\.gb(\/?)|\.gd(\/?)|\.ge(\/?)|\.gf(\/?)|\.gg(\/?)|\.gh(\/?)|\.gi(\/?)|\.gl(\/?)|\.gm(\/?)|\.gn(\/?)|\.gp(\/?)|\.gq(\/?)|\.gr(\/?)|\.gs(\/?)|\.gt(\/?)|\.gu(\/?)|\.gw(\/?)|\.gy(\/?)|\.hk(\/?)|\.hm(\/?)|\.hn(\/?)|\.hr(\/?)|\.ht(\/?)|\.hu(\/?)|\.id(\/?)|\.ie(\/?)|\.il(\/?)|\.im(\/?)|\.in(\/?)|\.io(\/?)|\.iq(\/?)|\.ir(\/?)|\.is(\/?)|\.it(\/?)|\.je(\/?)|\.jm(\/?)|\.jo(\/?)|\.jp(\/?)|\.ke(\/?)|\.kg(\/?)|\.kh(\/?)|\.ki(\/?)|\.km(\/?)|\.kn(\/?)|\.kp(\/?)|\.kr(\/?)|\.kw(\/?)|\.ky(\/?)|\.kz(\/?)|\.la(\/?)|\.lb(\/?)|\.lc(\/?)|\.li(\/?)|\.lk(\/?)|\.lr(\/?)|\.ls(\/?)|\.lt(\/?)|\.lu(\/?)|\.lv(\/?)|\.ly(\/?)|\.ma(\/?)|\.mc(\/?)|\.md(\/?)|\.me(\/?)|\.mg(\/?)|\.mh(\/?)|\.mk(\/?)|\.ml(\/?)|\.mm(\/?)|\.mn(\/?)|\.mo(\/?)|\.mp(\/?)|\.mq(\/?)|\.mr(\/?)|\.ms(\/?)|\.mt(\/?)|\.mu(\/?)|\.mv(\/?)|\.mw(\/?)|\.mx(\/?)|\.my(\/?)|\.mz(\/?)|\.na(\/?)|\.nc(\/?)|\.ne(\/?)|\.nf(\/?)|\.ng(\/?)|\.ni(\/?)|\.nl(\/?)|\.no(\/?)|\.np(\/?)|\.nr(\/?)|\.nu(\/?)|\.nz(\/?)|\.om(\/?)|\.pa(\/?)|\.pe(\/?)|\.pf(\/?)|\.pg(\/?)|\.ph(\/?)|\.pk(\/?)|\.pl(\/?)|\.pm(\/?)|\.pn(\/?)|\.pr(\/?)|\.ps(\/?)|\.pt(\/?)|\.pw(\/?)|\.py(\/?)|\.qa(\/?)|\.re(\/?)|\.ro(\/?)|\.rs(\/?)|\.ru(\/?)|\.rw(\/?)|\.sa(\/?)|\.sb(\/?)|\.sc(\/?)|\.sd(\/?)|\.se(\/?)|\.sg(\/?)|\.sh(\/?)|\.si(\/?)|\.sj(\/?)|\.sk(\/?)|\.sl(\/?)|\.sm(\/?)|\.sn(\/?)|\.so(\/?)|\.sr(\/?)|\.st(\/?)|\.su(\/?)|\.sv(\/?)|\.sy(\/?)|\.sz(\/?)|\.tc(\/?)|\.td(\/?)|\.tf(\/?)|\.tg(\/?)|\.th(\/?)|\.tj(\/?)|\.tk(\/?)|\.tl(\/?)|\.tm(\/?)|\.tn(\/?)|\.to(\/?)|\.tp(\/?)|\.tr(\/?)|\.tt(\/?)|\.tv(\/?)|\.tw(\/?)|\.tz(\/?)|\.ua(\/?)|\.ug(\/?)|\.uk(\/?)|\.um(\/?)|\.us(\/?)|\.uy(\/?)|\.uz(\/?)|\.va(\/?)|\.vc(\/?)|\.ve(\/?)|\.vg(\/?)|\.vi(\/?)|\.vn(\/?)|\.vu(\/?)|\.wf(\/?)|\.ws(\/?)|\.ye(\/?)|\.yt(\/?)|\.yu(\/?)|\.za(\/?)|\.zm(\/?)|\.zw(\/?)|\.aero(\/?)|\.asia(\/?)|\.biz(\/?)|\.cat(\/?)|\.com(\/?)|\.coop(\/?)|\.edu(\/?)|\.gov(\/?)|\.info(\/?)|\.int(\/?)|\.jobs(\/?)|\.mil(\/?)|\.mobi(\/?)|\.museum(\/?)|\.name(\/?)|\.net(\/?)|\.org(\/?)|\.pro(\/?)|\.tel(\/?)|\.travel(\/?))(.*)")
+    res = re.sub(regex2, '', url)
+    print ('res sub')
+    print (res)
+    resLength = len(res.split(".")) - 1
+    print ('res.length after split = {}'.format(resLength) )
+    
+    if resLength == 1:
+        return -1
+    elif resLength == 2:
+        return 0
+    else:
+        return -1
+
+
+# 1.1.11 Using Non-Standard Port
+# ??
+def rule1111_port(url):
+    print urllib.urlopen(url).getcode()
+
+
+# 1.1.12 The Existence of "HTTPS" Token in the Domain Part of the URL
+def rule1112_https(url):
+    print 'rule1112_https function -> ' + url
+    regex = re.compile(r"^http(s?):\/\/")
+    res = re.sub(regex,'', url);
+    print "res {}".format(res)
+
+    regex2 = re.compile(r"http(s?)")
+    matchObj = re.search(regex2, url);
+    print matchObj
+    print matchObj.group()
+    # print matchObj.start()
     if matchObj:
         return 1
     else:
         return -1
+
 
 
 
@@ -100,7 +141,19 @@ print (rule114_atsymbol(url3))
 print (rule115_doubleslash(url3))
 print (rule116_prefix(url3))
 
-url4 = 'http://hun.ac.uk'
-print (rule117_prefix(url4))
+print ('rule117---------------------------------')
+url4 = 'http://www.google.ac.uk'
+print (rule117_subdomain(url4))
 
 
+# 118, 119 , 1.1.10
+
+# 1.1.11
+
+print ('rule1111---------------------------------')
+url1111 = 'http://www.google.com'
+print (rule1111_port(url1111))
+
+print ('rule1112---------------------------------')
+url1112 = 'https://http-www.google.com'
+print (rule1112_https(url1112))
