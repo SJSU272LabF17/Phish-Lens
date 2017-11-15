@@ -76,6 +76,14 @@ def rule02_length(url):
     else:
       return 1
 
+def rule12_favicon(url):
+    print 'rule08_https_function ->' + url
+    favicon_url = get_favicon_url(url);
+    if url not in favicon_url:
+        return -1
+    else:
+        return 1
+
 # -----------------------------------------------------------
 
 app = Flask(__name__)
@@ -96,7 +104,7 @@ def check():
     print json_
     print "^^^^^^^^^^^^^^^^^ json_.['input'] "
     print json_['input']
-    
+
 
     # # Load the training data
     # train_inputs, train_outputs, test_inputs, test_outputs = load_data()
@@ -118,6 +126,7 @@ def check():
     # url = 'http://0x58.0xCC.0xCA.0x62/2/paypal.ca/index.html'
     attribute.append(rule01_ip(json_['url']))
     attribute.append(rule02_length(json_['url']))
+    attribute.append(rule12_favicon(json_['url']))
     print attribute
     print '###################'
 
