@@ -1,6 +1,10 @@
 import regex as re
 import urllib
 
+from lxml import html
+import requests
+
+
 def rule111_ip(url):
     # \b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b
     print 'rule01_ip function -> ' + url
@@ -98,7 +102,7 @@ def rule117_subdomain(url):
 
 
 # 1.1.11 Using Non-Standard Port
-# ??
+# ?? not done yet
 def rule1111_port(url):
     print urllib.urlopen(url).getcode()
 
@@ -122,6 +126,12 @@ def rule1112_https(url):
 
 
 
+# 1.2 Abnormal Based Features
+def rule121_requesturl(url):
+    print 'rule121_requesturl url=', url
+    r = requests.get(url)
+    # tree = html.fromstring(page.content)
+    print (r.text[0:500])
 
 #  http://88.204.202.98/2/paypal.ca/index.html
 # url = '88.204.202.98'
@@ -157,3 +167,7 @@ print (rule1111_port(url1111))
 print ('rule1112---------------------------------')
 url1112 = 'https://http-www.google.com'
 print (rule1112_https(url1112))
+
+print ('rule121---------------------------------')
+url121 = 'https://www.google.com'
+print (rule121_requesturl(url121))
