@@ -3,6 +3,7 @@ import os
 import shutil
 import time
 import traceback
+import urllib
 
 from flask import Flask, request, jsonify
 import pandas as pd
@@ -11,7 +12,8 @@ from sklearn.externals import joblib
 # -----------------------------------------------------------
 from sklearn import tree
 from sklearn.metrics import accuracy_score
-
+from urlparse import urlparse
+from pyfav import get_favicon_url
 import numpy as np
 import json
 import re
@@ -76,13 +78,26 @@ def rule02_length(url):
     else:
       return 1
 
-def rule12_favicon(url):
-    print 'rule08_https_function ->' + url
+def rule10_favicon(url):
+    print 'rule10_favicon ->' + url
     favicon_url = get_favicon_url(url);
+    if favicon_url == None:
+        return 1
     if url not in favicon_url:
         return -1
     else:
         return 1
+
+def rule11_non_standard_port(url):
+    print 'rule11_non_standard_port ->' + url
+    parsed_url = urlparse(url);
+    port_number = parsed_url.port;
+    accepted_ports = [None, 21, 22, 23, 80, 443, 445, 1433, 1521, 3306, 3389];
+    if port_number in accepted_ports:
+        return 1
+    else:
+        return -1
+
 
 # -----------------------------------------------------------
 
@@ -126,7 +141,8 @@ def check():
     # url = 'http://0x58.0xCC.0xCA.0x62/2/paypal.ca/index.html'
     attribute.append(rule01_ip(json_['url']))
     attribute.append(rule02_length(json_['url']))
-    attribute.append(rule12_favicon(json_['url']))
+    attribute.append(rule10_favicon(json_['url']))
+    attribute.append(rule11_non_standard_port(json_['url']))
     print attribute
     print '###################'
 
