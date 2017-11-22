@@ -1,5 +1,7 @@
 import regex as re
 import urllib
+from pyfav import get_favicon_url
+from urlparse import urlparse
 
 from lxml import html
 import requests
@@ -7,7 +9,7 @@ import requests
 
 def rule111_ip(url):
     # \b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b
-    print 'rule01_ip function -> ' + url
+    print 'rule111_ip function -> ' + url
     regex = re.compile(r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b")
     matchObj = re.search(regex, url);
     print matchObj
@@ -101,10 +103,28 @@ def rule117_subdomain(url):
         return -1
 
 
-# 1.1.11 Using Non-Standard Port
-# ?? not done yet
-def rule1111_port(url):
-    print urllib.urlopen(url).getcode()
+
+def rule1110_favicon(url):
+    print 'rule10_favicon ->' + url
+    favicon_url = get_favicon_url(url)
+    print "      rule1110_favicon"
+    print favicon_url
+    if favicon_url == None:
+        return 1
+    if url not in favicon_url:
+        return -1
+    else:
+        return 1
+
+def rule1111_non_standard_port(url):
+    print 'rule11_non_standard_port ->' + url
+    parsed_url = urlparse(url);
+    port_number = parsed_url.port;
+    accepted_ports = [None, 21, 22, 23, 80, 443, 445, 1433, 1521, 3306, 3389];
+    if port_number in accepted_ports:
+        return 1
+    else:
+        return -1
 
 
 # 1.1.12 The Existence of "HTTPS" Token in the Domain Part of the URL
@@ -124,88 +144,3 @@ def rule1112_https(url):
     else:
         return -1
 
-
-
-# 1.2 Abnormal Based Features
-def rule121_requesturl(url):
-    print 'rule121_requesturl url=', url
-    r = requests.get(url)
-    # tree = html.fromstring(page.content)
-    print (r.text[0:500])
-
-
-def check_url(url):
-    # r = requests.get(url)
-    # print r
-    # request = requests.get(url)
-    # if request.status_code == 200:
-    #     print('Web site exists')
-    # else:
-    #     print('Web site does not exist') 
-
-    # import httplib2
-    # h = httplib2.Http()
-    # resp = h.request("http://www.google.com", 'HEAD')
-    # assert int(resp[0]['status']) < 400
-
-    # import httplib
-    # from urlparse import urlparse
-    # p = urlparse(url)
-    # conn = httplib.HTTPConnection(p.netloc)
-    # conn.request('HEAD', p.path)
-    # resp = conn.getresponse()
-    # print resp.status
-    # return resp.status < 400
-
-    r = requests.head(url)
-    
-    return r.status_code == requests.codes.ok
-
-
-
-#  http://88.204.202.98/2/paypal.ca/index.html
-# url = '88.204.202.98'
-url = 'http://88.204.202.98/2/paypal.ca/index.html'
-print (rule111_ip(url))
-print (rule112_length(url))
-
-mylist = [1,2,3]
-mylist.append(4)
-print mylist
-
-url2 = 'bit.ly/19DXSk4'
-print (rule113_tinyurl(url2))
-
-url3 = 'http://bit.l-y/19DX@Sk4'
-print (rule114_atsymbol(url3))
-print (rule115_doubleslash(url3))
-print (rule116_prefix(url3))
-
-print ('rule117---------------------------------')
-url4 = 'http://www.google.ac.uk'
-print (rule117_subdomain(url4))
-
-
-# 118, 119 , 1.1.10
-
-# 1.1.11
-
-print ('rule1111---------------------------------')
-url1111 = 'http://www.google.com'
-print (rule1111_port(url1111))
-
-print ('rule1112---------------------------------')
-url1112 = 'https://http-www.google.com'
-print (rule1112_https(url1112))
-
-url1112b = 'https://www.google.com'
-print (rule1112_https(url1112b))
-
-
-print ('rule121---------------------------------')
-url121 = 'https://www.google.com'
-print (rule121_requesturl(url121))
-
-print ('check_url---------------------------------')
-urlcheck_url = 'https://fdfdfdfacebook.com'
-check_url(urlcheck_url)

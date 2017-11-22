@@ -19,6 +19,9 @@ import json
 import re
 import requests
 
+from rules import rule111_ip, rule112_length, rule113_tinyurl, rule114_atsymbol, rule115_doubleslash, rule116_prefix, rule117_subdomain, rule1110_favicon, rule1111_non_standard_port, rule1112_https
+
+
 def load_data():
     """
     This helper function loads the dataset saved in the CSV file
@@ -95,49 +98,6 @@ def check_phishtank(url):
 
     # return jsonify({ 'isExisted': finalVerdict })
     return finalVerdict
-
-
-
-def rule01_ip(url):
-    # \b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b
-    print 'rule01_ip function -> ' + url
-    regex = re.compile(r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b")
-    matchObj = re.search(regex, url);
-    print matchObj
-    if matchObj:
-        return 1
-    else:
-        return -1
-
-def rule02_length(url):
-    print 'rule02_length function -> ' + url
-
-    if len(url) < 54:
-      return -1
-    elif len(url) >= 54 and len(url) <= 75:
-      return 0
-    else:
-      return 1
-
-def rule10_favicon(url):
-    print 'rule10_favicon ->' + url
-    favicon_url = get_favicon_url(url);
-    if favicon_url == None:
-        return 1
-    if url not in favicon_url:
-        return -1
-    else:
-        return 1
-
-def rule11_non_standard_port(url):
-    print 'rule11_non_standard_port ->' + url
-    parsed_url = urlparse(url);
-    port_number = parsed_url.port;
-    accepted_ports = [None, 21, 22, 23, 80, 443, 445, 1433, 1521, 3306, 3389];
-    if port_number in accepted_ports:
-        return 1
-    else:
-        return -1
 
 
 # -----------------------------------------------------------
@@ -231,11 +191,26 @@ def check():
         print '###################'
         # url = 'http://88.204.202.98/2/paypal.ca/index.html'
         # url = 'http://0x58.0xCC.0xCA.0x62/2/paypal.ca/index.html'
-        attribute.append(rule01_ip(json_['url']))
-        attribute.append(rule02_length(json_['url']))
-        attribute.append(rule10_favicon(json_['url']))
-        attribute.append(rule11_non_standard_port(json_['url']))
+        # attribute.append(rule01_ip(json_['url']))
+        # attribute.append(rule02_length(json_['url']))
+        # attribute.append(rule10_favicon(json_['url']))
+        # attribute.append(rule11_non_standard_port(json_['url']))
         # attribute.append(rule12_favicon(json_['url']))
+
+        url = json_['url']
+        attribute.append(rule111_ip(url))
+        attribute.append(rule112_length(url))
+        attribute.append(rule113_tinyurl(url))
+        attribute.append(rule114_atsymbol(url))
+        attribute.append(rule115_doubleslash(url))
+        attribute.append(rule116_prefix(url))
+        attribute.append(rule117_subdomain(url))
+        attribute.append(rule1110_favicon(url))
+        attribute.append(rule1111_non_standard_port(url))
+        attribute.append(rule1112_https(url))
+
+        
+        print 'attribute='
         print attribute
         print '###################'
 
