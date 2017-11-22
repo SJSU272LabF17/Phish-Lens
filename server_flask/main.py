@@ -1,4 +1,4 @@
-import sys
+# import sys
 import os
 import shutil
 import time
@@ -7,7 +7,7 @@ import urllib
 
 from flask import Flask, request, jsonify
 import pandas as pd
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
 
 # -----------------------------------------------------------
 from sklearn import tree
@@ -17,6 +17,7 @@ from pyfav import get_favicon_url
 import numpy as np
 import json
 import re
+import requests
 
 def load_data():
     """
@@ -55,6 +56,46 @@ def load_data():
 
     # Return the four arrays
     return training_inputs, training_outputs, testing_inputs, testing_outputs
+
+def check_phishtank(url):
+    myjson = {
+        "url": url,
+        "format": "json",
+        "app_key": "71eb7c67c1f4f2088cf27e3d75216f49edccffc5712c6bde5a4a3fee5e6055f8"
+        }
+    print "--------------myjson"
+    print myjson
+
+    url = 'http://checkurl.phishtank.com/checkurl/'
+    headers = {"content-type":"application/x-www-form-urlencoded"}
+    res = requests.post(url, headers=headers, data=myjson)
+    print 'response from server:',res.text
+    
+    resjson = res.json()
+    print resjson
+    print "-----"
+    print resjson['results']
+    
+    in_database = False
+    if 'in_database' in resjson['results']:
+        in_database = resjson['results']['in_database']
+
+    valid = False
+    if 'valid' in resjson['results']:
+        valid = resjson['results']['valid']
+
+    print "-----resjson['results']['in_database']"
+    print in_database
+    print "-----resjson['results']['valid']"
+    print valid
+    
+    finalVerdict = (in_database and valid)
+    print 'finalVerdict ='
+    print finalVerdict
+
+    # return jsonify({ 'isExisted': finalVerdict })
+    return finalVerdict
+
 
 
 def rule01_ip(url):
@@ -110,6 +151,50 @@ test_inputs = ''
 test_outputs = ''
 
 
+@app.route('/test', methods=['POST'])
+def test():
+    myjson = {
+        "url": "https://www.facebook.com",
+        "format": "json",
+        "app_key": "71eb7c67c1f4f2088cf27e3d75216f49edccffc5712c6bde5a4a3fee5e6055f8"
+        }
+    print "--------------myjson"
+    print myjson
+
+    print "--------------request"
+    print request.json
+
+    url = 'http://checkurl.phishtank.com/checkurl/'
+    headers = {"content-type":"application/x-www-form-urlencoded"}
+    res = requests.post(url, headers=headers, data=request.json)
+    print 'response from server:',res.text
+    
+    resjson = res.json()
+    print resjson
+    print "-----"
+    print resjson['results']
+
+    in_database = False
+    if 'in_database' in resjson['results']:
+        in_database = resjson['results']['in_database']
+
+    valid = False
+    if 'valid' in resjson['results']:
+        valid = resjson['results']['valid']
+
+    print "-----resjson['results']['in_database']"
+    print in_database
+    print "-----resjson['results']['valid']"
+    print valid
+    
+    finalVerdict = (in_database and valid)
+    print 'finalVerdict ='
+    print finalVerdict
+    return jsonify({ 'isExisted': finalVerdict })
+    # return finalVerdict
+
+
+
 @app.route('/check', methods=['POST'])
 def check():
     print "Tutorial: Training a decision tree to detect phishing websites"
@@ -121,58 +206,67 @@ def check():
     print json_['input']
 
 
-    # # Load the training data
-    # train_inputs, train_outputs, test_inputs, test_outputs = load_data()
-    # print "Training data loaded."
-
-    # Create a decision tree classifier model using scikit-learn
-    classifier = tree.DecisionTreeClassifier()
-    print "Decision tree classifier created."
-
-    print "Beginning model training."
-    # Train the decision tree classifier
-    classifier.fit(train_inputs, train_outputs)
-    print "Model training completed."
-
-
-    attribute = []
-    print '###################'
-    # url = 'http://88.204.202.98/2/paypal.ca/index.html'
-    # url = 'http://0x58.0xCC.0xCA.0x62/2/paypal.ca/index.html'
-    attribute.append(rule01_ip(json_['url']))
-    attribute.append(rule02_length(json_['url']))
-    attribute.append(rule10_favicon(json_['url']))
-    attribute.append(rule11_non_standard_port(json_['url']))
-    print attribute
-    print '###################'
-
-
-
-    # Use the trained classifier to make predictions on the test data
-    # rudy_inputs = [-1,1,1,1,-1,-1,-1,-1,-1,1,1,-1,1,-1,1,-1,-1,-1,0,1,1,1,1,-1,-1,-1,-1,1,1,-1]
-    predictions = classifier.predict([json_['input']])
-    print "test_inputs ------"
-    # print test_inputs
-    # print len(test_inputs)
-    print "Predictions on testing data computed."
-    print predictions
-    # print len(predictions)
-
-    # Print the accuracy (percentage of phishing websites correctly predicted)
-
-    rudy_outputs = [-1]
-    print "test_outputs"
-    print len(test_outputs)
-    # accuracy = 100.0 * accuracy_score(test_outputs, predictions)
-    # accuracy = 100.0 * accuracy_score(rudy_outputs, predictions)
-    # print "The accuracy of your decision tree on testing data is: " + str(accuracy)
-    # return jsonify({'message': "The accuracy of your decision tree on testing data is: " + str(accuracy)})
-
-
-    if predictions[0] == 1:
+    phistank = check_phishtank(json_['url'])
+    print " ----------- phistank"
+    print phistank
+    if phistank:
         return jsonify({'result': "Phishing site"})
     else:
-        return jsonify({'result': 'You are safe.'})
+
+        # # Load the training data
+        # train_inputs, train_outputs, test_inputs, test_outputs = load_data()
+        # print "Training data loaded."
+
+        # Create a decision tree classifier model using scikit-learn
+        classifier = tree.DecisionTreeClassifier()
+        print "Decision tree classifier created."
+
+        print "Beginning model training."
+        # Train the decision tree classifier
+        classifier.fit(train_inputs, train_outputs)
+        print "Model training completed."
+
+
+        attribute = []
+        print '###################'
+        # url = 'http://88.204.202.98/2/paypal.ca/index.html'
+        # url = 'http://0x58.0xCC.0xCA.0x62/2/paypal.ca/index.html'
+        attribute.append(rule01_ip(json_['url']))
+        attribute.append(rule02_length(json_['url']))
+        attribute.append(rule10_favicon(json_['url']))
+        attribute.append(rule11_non_standard_port(json_['url']))
+        # attribute.append(rule12_favicon(json_['url']))
+        print attribute
+        print '###################'
+
+
+
+        # Use the trained classifier to make predictions on the test data
+        # rudy_inputs = [-1,1,1,1,-1,-1,-1,-1,-1,1,1,-1,1,-1,1,-1,-1,-1,0,1,1,1,1,-1,-1,-1,-1,1,1,-1]
+        predictions = classifier.predict([json_['input']])
+        print "test_inputs ------"
+        # print test_inputs
+        # print len(test_inputs)
+        print "Predictions on testing data computed."
+        print predictions
+        # print len(predictions)
+
+        # Print the accuracy (percentage of phishing websites correctly predicted)
+
+        rudy_outputs = [-1]
+        print "test_outputs"
+        print len(test_outputs)
+        # accuracy = 100.0 * accuracy_score(test_outputs, predictions)
+        # accuracy = 100.0 * accuracy_score(rudy_outputs, predictions)
+        # print "The accuracy of your decision tree on testing data is: " + str(accuracy)
+        # return jsonify({'message': "The accuracy of your decision tree on testing data is: " + str(accuracy)})
+
+        
+
+        if predictions[0] == 1:
+            return jsonify({'result': "Phishing site"})
+        else:
+            return jsonify({'result': 'You are safe.'})
 
 
 if __name__ == '__main__':
