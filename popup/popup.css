@@ -1,4 +1,33 @@
+.logo {
+  width: 50px;
+  height: auto;
+  margin: 20px;
+}
+
+#wrapper {
+  width: 400px;
+}
+
+.center {
+  text-align: center;
+}
+
+.app-name {
+  font-size: 30px;
+  font-family: Trebuchet MS;
+  margin-top: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.app-name-container {
+  margin-top: 20px;*/
+}
+
 body {
+  background-color: deepskyblue;
+}
+/*body {
   background-color: #f8f8f8;
   margin: 0px;
 }
@@ -134,4 +163,4 @@ input[type="checkbox"]:checked:before {
 .italic {
     font-style: italic;
 }
-
+*/
