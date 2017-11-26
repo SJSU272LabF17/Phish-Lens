@@ -4,11 +4,12 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
           var parts = url.split("/");
           url = parts[0] + "//" + parts[2];
           if(url != 'chrome://newtab') {
-            chrome.storage.local.set({'PhisingId': 1312312312312}, function() {
+            $('#current_url').text(url);
+            chrome.storage.local.set({'url': url}, function() {
           // Notify that we saved.
-          alert('save');
+        //  alert('save');
             chrome.storage.local.get('PhisingId', function(result){
-              alert(result.PhisingId);
+            //  alert(result.url);
               });
         });
             chrome.notifications.create(url, {
@@ -21,7 +22,11 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
     }
 });
 
-
-$( document ).ready(function() {
-    alert(123);
-});
+chrome.tabs.query({
+     active: true,
+     lastFocusedWindow: true
+ }, function(tabs) {
+     // and use that tab to fill in out title and url
+     var parts = tabs[0].url.split("/");
+     $('#current_url').text(parts[2]);
+ });

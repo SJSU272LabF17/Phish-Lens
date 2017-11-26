@@ -12,7 +12,8 @@
     "tabs", "<all_urls>",
     "notifications",
     "webNavigation",
-    "storage"
+    "storage",
+    "activeTab"
   ],
 
   "browser_action": {
