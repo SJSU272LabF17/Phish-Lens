@@ -20,3 +20,8 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
           }
     }
 });
+
+
+$( document ).ready(function() {
+    alert(123);
+});
