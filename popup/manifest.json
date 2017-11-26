@@ -11,7 +11,8 @@
   "permissions": [
     "tabs", "<all_urls>",
     "notifications",
-    "webNavigation"
+    "webNavigation",
+    "storage"
   ],
 
   "browser_action": {

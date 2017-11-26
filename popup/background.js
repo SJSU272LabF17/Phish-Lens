@@ -17,8 +17,14 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
         if (url !== undefined && changeinfo.status == "complete") {
           var parts = url.split("/");
           url = parts[0] + "//" + parts[2];
-          alert(url);
           if(url != 'chrome://newtab') {
+            chrome.storage.local.set({'PhisingId': 1312312312312}, function() {
+          // Notify that we saved.
+          alert('save');
+            chrome.storage.local.get('PhisingId', function(result){
+              alert(result.PhisingId);  
+              });
+        });
             chrome.notifications.create(url, {
                 type: 'basic',
                 iconUrl: 'icon.png',
