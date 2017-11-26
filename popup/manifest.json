@@ -9,7 +9,9 @@
   },
 
   "permissions": [
-    "tabs", "<all_urls>"
+    "tabs", "<all_urls>",
+    "notifications",
+    "webNavigation"
   ],
 
   "browser_action": {
