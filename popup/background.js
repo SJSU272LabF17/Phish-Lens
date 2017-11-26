@@ -15,8 +15,17 @@ var BackgroundColor="";
 chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
     var url = tab.url;
         if (url !== undefined && changeinfo.status == "complete") {
-          alert(tab.url);
-
+          var parts = url.split("/");
+          url = parts[0] + "//" + parts[2];
+          alert(url);
+          if(url != 'chrome://newtab') {
+            chrome.notifications.create(url, {
+                type: 'basic',
+                iconUrl: 'icon.png',
+                title: "Phising attact detected",
+                message: url
+             }, function(notificationId) {});
+          }
     }
 });
 // chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
