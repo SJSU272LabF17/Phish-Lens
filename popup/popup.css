@@ -18,7 +18,7 @@ body {
 .logo {
   cursor: pointer;
   height: auto;
-  width: 45%;
+  width: 100%;
 }
 .menu-entry {
   padding: 3px 4px 3px 8px;
@@ -134,4 +134,3 @@ input[type="checkbox"]:checked:before {
 .italic {
     font-style: italic;
 }
-
