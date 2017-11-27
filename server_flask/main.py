@@ -112,7 +112,7 @@ def check_phishtank(url):
     headers = {"content-type":"application/x-www-form-urlencoded"}
     res = requests.post(url, headers=headers, data=myjson)
     print 'response from server:',res.text
-    
+
     resjson = res.json()
     print resjson
     print "-----"
@@ -134,7 +134,7 @@ def check_phishtank(url):
     print in_database
     print "-----resjson['results']['valid']"
     print valid
-    
+
     # finalVerdict = (in_database and valid)
     # print 'finalVerdict ='
     # print finalVerdict
@@ -158,7 +158,9 @@ custom_train_outputs = ''
 custom_test_inputs = ''
 custom_test_outputs = ''
 
-
+@app.route('/')
+def home():
+    return "The server is up"
 
 @app.route('/test', methods=['POST'])
 def test():
@@ -177,7 +179,7 @@ def test():
     headers = {"content-type":"application/x-www-form-urlencoded"}
     res = requests.post(url, headers=headers, data=request.json)
     print 'response from server:',res.text
-    
+
     resjson = res.json()
     print resjson
     print "-----"
@@ -195,7 +197,7 @@ def test():
     print in_database
     print "-----resjson['results']['valid']"
     print valid
-    
+
     finalVerdict = (in_database and valid)
     print 'finalVerdict ='
     print finalVerdict
@@ -226,14 +228,14 @@ def check():
         # Create a decision tree classifier model using scikit-learn
         # classifier = tree.DecisionTreeClassifier()
         custom_classifier = tree.DecisionTreeClassifier()
-        
+
         print "Decision tree classifier created."
 
         print "Beginning model training."
         # Train the decision tree classifier
         # classifier.fit(train_inputs, train_outputs)
         custom_classifier.fit(custom_train_inputs, custom_train_outputs)
-        
+
         print "Model training completed."
 
 
@@ -258,7 +260,7 @@ def check():
         attribute.append(rule1110_favicon(url))
         attribute.append(rule1111_non_standard_port(url))
         attribute.append(rule1112_https(url))
-        
+
         print 'attribute='
         print attribute
         print '###################'
@@ -285,7 +287,7 @@ def check():
         # accuracy = 100.0 * accuracy_score(rudy_outputs, predictions)
         # print "The accuracy of your decision tree on testing data is: " + str(accuracy)
         # return jsonify({'message': "The accuracy of your decision tree on testing data is: " + str(accuracy)})
-        
+
 
         if predictions[0] == 1:
             return jsonify({'result': True})
