@@ -1,15 +1,10 @@
-.logo {
-  width: 50px;
-  height: auto;
-  margin: 20px;
+body {
+  background-color: #f8f8f8;
+  margin: 0px;
 }
 
-#wrapper {
-  width: 400px;
-}
-
-.center {
-  text-align: center;
+.app-name-container {
+  margin-top: 20px;
 }
 
 .app-name {
@@ -20,17 +15,6 @@
   font-weight: bold;
 }
 
-.app-name-container {
-  margin-top: 20px;*/
-}
-
-body {
-  background-color: deepskyblue;
-}
-/*body {
-  background-color: #f8f8f8;
-  margin: 0px;
-}
 #wrapper {
   margin: 0px 0px;
   width: 275px;
@@ -47,12 +31,27 @@ body {
 .logo {
   cursor: pointer;
   height: auto;
-  width: 45%;
+  width: 100%;
 }
 .menu-entry {
   padding: 3px 4px 3px 8px;
   cursor: pointer;
 }
+
+a {
+  color: #4D7BD6;
+  text-decoration: none;
+}
+a:focus {
+  outline: none;
+}
+a:hover {
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  color: red;
+}
+
+/*
 .menu-entry:hover {
   -webkit-transition: all 0.3s ease-out;
   background: #F2F2F2;
@@ -108,18 +107,7 @@ body {
   font-weight: bold;
   color: red;
 }
-a {
-  color: #4D7BD6;
-  text-decoration: none;
-}
-a:focus {
-  outline: none;
-}
-a:hover {
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  color: red;
-}
+
 input[type="checkbox"] {
   height: 1.2em;
   width: 1.2em;
@@ -157,10 +145,11 @@ input[type="checkbox"]:checked:before {
   content: '\2713';
   margin-left: 20%;
 }
-.adblock-preserve-whitespace {
+.popup-preserve-whitespace {
   white-space: pre-wrap;
 }
 .italic {
     font-style: italic;
 }
+
 */
