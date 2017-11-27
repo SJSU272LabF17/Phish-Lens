@@ -60,6 +60,45 @@ def load_data():
     # Return the four arrays
     return training_inputs, training_outputs, testing_inputs, testing_outputs
 
+def load_custom_data():
+    """
+    This helper function loads the dataset saved in the CSV file
+    and returns 4 numpy arrays containing the training set inputs
+    and labels, and the testing set inputs and labels.
+    """
+
+    # Load the training data from the CSV file
+    training_data = np.genfromtxt('data/custom_dataset.csv', delimiter=',', dtype=np.int32)
+
+    """
+    Each row of the CSV file contains the features collected on a website
+    as well as whether that website was used for phishing or not.
+    We now separate the inputs (features collected on each website)
+    from the output labels (whether the website is used for phishing).
+    """
+
+    # Extract the inputs from the training data array (all columns but the last one)
+    inputs = training_data[:,:-1]
+    print "**** inputs ****"
+    print inputs
+    print len(inputs)
+
+    # Extract the outputs from the training data array (last column)
+    outputs = training_data[:, -1]
+    print "**** outputs ****"
+    print outputs
+    print len(outputs)
+
+    # Separate the training (first 2,000 websites) and testing data (last 456)
+    custom_training_inputs = inputs[:900]
+    custom_training_outputs = outputs[:900]
+    custom_testing_inputs = inputs[900:]
+    custom_testing_outputs = outputs[900:]
+
+    # Return the four arrays
+    return custom_training_inputs, custom_training_outputs, custom_testing_inputs, custom_testing_outputs
+
+
 def check_phishtank(url):
     myjson = {
         "url": url,
@@ -78,7 +117,7 @@ def check_phishtank(url):
     print resjson
     print "-----"
     print resjson['results']
-    
+
     in_database = False
     if 'in_database' in resjson['results']:
         in_database = resjson['results']['in_database']
@@ -87,17 +126,21 @@ def check_phishtank(url):
     if 'valid' in resjson['results']:
         valid = resjson['results']['valid']
 
+    verified = False
+    if 'verified' in resjson['results']:
+        verified = resjson['results']['verified']
+
     print "-----resjson['results']['in_database']"
     print in_database
     print "-----resjson['results']['valid']"
     print valid
     
-    finalVerdict = (in_database and valid)
-    print 'finalVerdict ='
-    print finalVerdict
+    # finalVerdict = (in_database and valid)
+    # print 'finalVerdict ='
+    # print finalVerdict
 
     # return jsonify({ 'isExisted': finalVerdict })
-    return finalVerdict
+    return { 'in_database': in_database, 'valid': valid, 'verified': verified }
 
 
 # -----------------------------------------------------------
@@ -109,6 +152,12 @@ train_inputs = ''
 train_outputs = ''
 test_inputs = ''
 test_outputs = ''
+
+custom_train_inputs = ''
+custom_train_outputs = ''
+custom_test_inputs = ''
+custom_test_outputs = ''
+
 
 
 @app.route('/test', methods=['POST'])
@@ -162,28 +211,29 @@ def check():
     json_ = request.json
     print "^^^^^^^^^^^^^^^^^ json_ "
     print json_
-    print "^^^^^^^^^^^^^^^^^ json_.['input'] "
-    print json_['input']
-
 
     phistank = check_phishtank(json_['url'])
     print " ----------- phistank"
     print phistank
-    if phistank:
-        return jsonify({'result': "Phishing site"})
-    else:
+    if phistank['in_database']==True and phistank['valid']==True:
+        return jsonify({'result': True})
+    elif phistank['in_database']==False and phistank['valid']==False:
 
         # # Load the training data
         # train_inputs, train_outputs, test_inputs, test_outputs = load_data()
         # print "Training data loaded."
 
         # Create a decision tree classifier model using scikit-learn
-        classifier = tree.DecisionTreeClassifier()
+        # classifier = tree.DecisionTreeClassifier()
+        custom_classifier = tree.DecisionTreeClassifier()
+        
         print "Decision tree classifier created."
 
         print "Beginning model training."
         # Train the decision tree classifier
-        classifier.fit(train_inputs, train_outputs)
+        # classifier.fit(train_inputs, train_outputs)
+        custom_classifier.fit(custom_train_inputs, custom_train_outputs)
+        
         print "Model training completed."
 
 
@@ -208,22 +258,22 @@ def check():
         attribute.append(rule1110_favicon(url))
         attribute.append(rule1111_non_standard_port(url))
         attribute.append(rule1112_https(url))
-
         
         print 'attribute='
         print attribute
         print '###################'
 
 
-
         # Use the trained classifier to make predictions on the test data
         # rudy_inputs = [-1,1,1,1,-1,-1,-1,-1,-1,1,1,-1,1,-1,1,-1,-1,-1,0,1,1,1,1,-1,-1,-1,-1,1,1,-1]
-        predictions = classifier.predict([json_['input']])
-        print "test_inputs ------"
+        # predictions = classifier.predict([json_['input']])
+        predictions = custom_classifier.predict([attribute])
+        print "------ test_inputs ------"
         # print test_inputs
         # print len(test_inputs)
         print "Predictions on testing data computed."
         print predictions
+        print "----------------- -------"
         # print len(predictions)
 
         # Print the accuracy (percentage of phishing websites correctly predicted)
@@ -235,14 +285,14 @@ def check():
         # accuracy = 100.0 * accuracy_score(rudy_outputs, predictions)
         # print "The accuracy of your decision tree on testing data is: " + str(accuracy)
         # return jsonify({'message': "The accuracy of your decision tree on testing data is: " + str(accuracy)})
-
         
 
         if predictions[0] == 1:
-            return jsonify({'result': "Phishing site"})
+            return jsonify({'result': True})
         else:
-            return jsonify({'result': 'You are safe.'})
-
+            return jsonify({'result': False})
+    else:
+        return jsonify({'result': False})
 
 if __name__ == '__main__':
     try:
@@ -254,6 +304,10 @@ if __name__ == '__main__':
         # Load the training data
         train_inputs, train_outputs, test_inputs, test_outputs = load_data()
         print "Training data loaded."
+
+        custom_train_inputs, custom_train_outputs, custom_test_inputs, custom_test_outputs = load_custom_data()
+        print "Custom training data loaded."
+
 
     except Exception, e:
         print 'No model here'
