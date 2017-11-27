@@ -1,0 +1,32 @@
+
+> phishing-backend@0.0.0 start /var/www/Project-Team-4/phishing-backend
+> node ./bin/www
+
+[0mGET / [36m304 [0m13.674 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.804 ms - -[0m
+[0mGET / [36m304 [0m2.348 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.461 ms - -[0m
+[0mGET / [36m304 [0m0.701 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.310 ms - -[0m
+[0mGET / [36m304 [0m0.743 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.253 ms - -[0m
+[0mGET / [36m304 [0m0.679 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.301 ms - -[0m
+[0mGET / [36m304 [0m0.707 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.014 ms - -[0m
+[0mGET / [36m304 [0m0.678 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.312 ms - -[0m
+[0mGET / [36m304 [0m0.718 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.286 ms - -[0m
+[0mGET / [36m304 [0m0.962 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.322 ms - -[0m
+[0mGET / [36m304 [0m2.898 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.336 ms - -[0m
+[0mGET / [36m304 [0m3.577 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.275 ms - -[0m
+[0mGET / [36m304 [0m0.694 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.284 ms - -[0m
+[0mGET / [36m304 [0m0.738 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.125 ms - -[0m
+[0mGET / [36m304 [0m1.424 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.294 ms - -[0m
