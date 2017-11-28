@@ -15,7 +15,7 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
             chrome.notifications.create(url, {
                 type: 'basic',
                 iconUrl: 'icon1.png',
-                title: "Phising attact detected",
+                title: "Phising attack detected",
                 message: url
              }, function(notificationId) {});
           }
