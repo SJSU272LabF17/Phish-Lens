@@ -1,5 +1,5 @@
 body {
-  background-color: #f8f8f8;
+  background-color: #F7F7F7;
   margin: 0px;
 }
 
@@ -13,8 +13,8 @@ div#safetyIndex {
     margin: 5px 0px 10px 10px;
     box-shadow: inset 0px 0px 0px 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333;
     background-image: -webkit-linear-gradient(
-        left, 
-        #D00000 0%,  
+        left,
+        #D00000 0%,
         #99FF33 0%
     );
 }
@@ -29,7 +29,7 @@ div#safetyIndex {
 
 #wrapper {
   margin: 0px 0px;
-  width: 275px;
+  width: 340px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   max-height: 600px;
@@ -43,7 +43,8 @@ div#safetyIndex {
 .logo {
   cursor: pointer;
   height: auto;
-  width: 100%;
+  padding: 4px;
+  width: 50px;
 }
 
 .container {
