@@ -38,6 +38,7 @@
 
 
 .site-status-contianer {
+  border-bottom: 1px solid #ddd;
 }
 
 .site-status {
@@ -69,7 +70,26 @@
 }
 
 
+.analytics-labels {
+  font-size: 13px;
+  font-family: monospace;
+  padding: 10px;
+}
+
+.analytics-title {
+  border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  top: 50%;
+  text-align: center;
+  font-family: monospace;
+  padding: 10px;
+}
+
 .loading {
   height: auto;
   width: 60px;
+}
+
+.action-contianer {
+  padding: 10px;
 }

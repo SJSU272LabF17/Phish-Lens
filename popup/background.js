@@ -8,7 +8,7 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
       if(isPhish) {
         chrome.notifications.create(url+guid(), {
           type: 'basic',
-          iconUrl: 'icon1.png',
+          iconUrl: 'lens.png',
           title: "Phising attack detected",
           message: url
         }, function(notificationId) {});

@@ -2,12 +2,12 @@
   <head>
     <link rel="stylesheet" href="popup.css"/>
     <link rel="stylesheet" href="popup_new.css"/>
+    <link rel="stylesheet" href="switch.css"/>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="jquery.min.js"></script>
     <script src="background.js"></script>
@@ -30,8 +30,28 @@
           <div class="site-status-unsafe" style="display:none;"> <i class="fa fa-times-circle"></i> </div>
         </div>
         <div class="site-status-contianer">
-          <div class="status-label"> Analytics </div>
+          <div class="analytics-title"> Analytics </div>
+          <div class="total-hits-label analytics-labels"> Total Hits <span class="pull-right"> 12312312312</span> </div>
+          <div class="total-phished-label analytics-labels"> Phished website detected <span class="pull-right"> 312</span> </div>
+        </div>
+        <div class="action-contianer">
+          <div>
+            <div class="pull-left">
+              <div class="onoffswitch1">
+                <input type="checkbox" name="onoffswitch1" class="onoffswitch1-checkbox" id="myonoffswitch1" checked>
+                <label class="onoffswitch1-label" for="myonoffswitch1">
+                  <span class="onoffswitch1-inner"></span>
+                  <span class="onoffswitch1-switch"></span>
+                </label>
+              </div>
+            </div>
+            <div class="pull-right">
+              <button class="btn btn-success"> <i class="fa fa-flag"> </i> Report phishing </button>
+            </div>
+          </div>
+          <div class="clearfix"> </div>
         </div>
       </div>
+    </div>
   </body>
 </html>
