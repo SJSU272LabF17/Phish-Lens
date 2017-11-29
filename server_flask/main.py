@@ -143,6 +143,16 @@ def check_phishtank(url):
     return { 'in_database': in_database, 'valid': valid, 'verified': verified }
 
 
+def strip_url(url):
+    old = urlparse(url)
+    domain = old.hostname
+    splitted = domain.rsplit('.')
+    if(len(splitted) == 3):
+        domain = splitted[1] + '.' + splitted[2]
+    return domain
+
+
+
 # -----------------------------------------------------------
 
 app = Flask(__name__)
@@ -157,6 +167,8 @@ custom_train_inputs = ''
 custom_train_outputs = ''
 custom_test_inputs = ''
 custom_test_outputs = ''
+
+topsites = ''
 
 @app.route('/')
 def home():
@@ -214,13 +226,33 @@ def check():
     print "^^^^^^^^^^^^^^^^^ json_ "
     print json_
 
-    phistank = check_phishtank(json_['url'])
+
+    stripped_url = strip_url(json_['url'])
+    res = topsites.loc[topsites['url'] == stripped_url]
+    print stripped_url
+    if len(res):
+        print 'horay'
+    else:
+        print 'boo'
+
+
+    phistank = ''
+
+    # Check if url domain is on top sites url
+    if len(res):
+        return jsonify({'result': False})
+    else:
+        # if not check with phistank
+        phistank = check_phishtank(json_['url'])
+
     print " ----------- phistank"
     print phistank
+
+    # check if phisthank has it in their database
     if phistank['in_database']==True and phistank['valid']==True:
         return jsonify({'result': True})
     elif phistank['in_database']==False and phistank['valid']==False:
-
+        # phisthank does not have it, we run it through Machine Learning
         # # Load the training data
         # train_inputs, train_outputs, test_inputs, test_outputs = load_data()
         # print "Training data loaded."
@@ -257,7 +289,10 @@ def check():
         attribute.append(rule115_doubleslash(url))
         attribute.append(rule116_prefix(url))
         attribute.append(rule117_subdomain(url))
-        attribute.append(rule1110_favicon(url))
+
+        # attribute.append(rule1110_favicon(url))
+        attribute.append(-1)
+
         attribute.append(rule1111_non_standard_port(url))
         attribute.append(rule1112_https(url))
 
@@ -310,6 +345,8 @@ if __name__ == '__main__':
         custom_train_inputs, custom_train_outputs, custom_test_inputs, custom_test_outputs = load_custom_data()
         print "Custom training data loaded."
 
+        topsites = pd.read_table('data/top-sites.csv', sep=',', header=None, names=["index", "url"])
+        print "Loaded top sites"
 
     except Exception, e:
         print 'No model here'
