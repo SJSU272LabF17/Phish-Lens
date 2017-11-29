@@ -234,19 +234,25 @@ def check():
         print 'horay'
     else:
         print 'boo'
-    print '<<_________________________>>'
 
-    phistank = check_phishtank(json_['url'])
+
+    phistank = ''
+
+    # Check if url domain is on top sites url
+    if len(res):
+        return jsonify({'result': False})
+    else:
+        # if not check with phistank
+        phistank = check_phishtank(json_['url'])
+
     print " ----------- phistank"
     print phistank
 
-
-    if len(res):
-        return jsonify({'result': False})
-    elif phistank['in_database']==True and phistank['valid']==True:
+    # check if phisthank has it in their database
+    if phistank['in_database']==True and phistank['valid']==True:
         return jsonify({'result': True})
     elif phistank['in_database']==False and phistank['valid']==False:
-
+        # phisthank does not have it, we run it through Machine Learning
         # # Load the training data
         # train_inputs, train_outputs, test_inputs, test_outputs = load_data()
         # print "Training data loaded."
