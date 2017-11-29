@@ -257,7 +257,7 @@ def check():
         attribute.append(rule115_doubleslash(url))
         attribute.append(rule116_prefix(url))
         attribute.append(rule117_subdomain(url))
-        # attribute.append(rule1110_favicon(url))
+        attribute.append(rule1110_favicon(url))
         attribute.append(rule1111_non_standard_port(url))
         attribute.append(rule1112_https(url))
 
