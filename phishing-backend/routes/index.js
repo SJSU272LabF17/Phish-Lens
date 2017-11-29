@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 
 
 var mysql = require('mysql')
@@ -17,7 +18,28 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/api/check', function(req, res, next) {
-  return res.status(200).json({'status': 200, 'message' : 'success'});
+  console.log(req.query.id);
+  console.log(req.query.url);
+  var postData = {
+    url: req.query.url
+  }
+  var options = {
+    method: 'post',
+    body: postData,
+    json: true,
+    url: "http://54.202.123.8/check"
+  }
+  request.post(options, function(err,response,body){
+    if(err) {
+      return res.status(200).json({'status': 500, 'message' : 'some error occoured, please try again later'});
+    } else {
+      if(body.result) {
+        return res.status(200).json({'status': 200, 'message' : 'phishing_detected'});
+      } else {
+        return res.status(200).json({'status': 200, 'message' : 'website safe'});
+      }
+    }
+  });
 })
 
 module.exports = router;

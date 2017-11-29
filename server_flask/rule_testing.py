@@ -4,6 +4,7 @@ import urllib
 from lxml import html
 import requests
 
+from urlparse import urlparse
 
 def rule111_ip(url):
     # \b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b
@@ -161,6 +162,28 @@ def check_url(url):
     
     return r.status_code == requests.codes.ok
 
+def strip_url(url):
+    print "legit"
+    o = urlparse(url)
+
+    domain = o.hostname
+
+    temp = domain.rsplit('.')
+
+    if(len(temp) == 3):
+        domain = temp[1] + '.' + temp[2]
+
+    return domain 
+    
+
+def strip_url2(url):
+    old = urlparse(url)
+    domain = old.hostname
+    splitted = domain.rsplit('.')
+    if(len(splitted) == 3):
+        domain = splitted[1] + '.' + splitted[2]
+    return domain
+
 
 
 #  http://88.204.202.98/2/paypal.ca/index.html
@@ -207,5 +230,13 @@ url121 = 'https://www.google.com'
 print (rule121_requesturl(url121))
 
 print ('check_url---------------------------------')
-urlcheck_url = 'https://fdfdfdfacebook.com'
-check_url(urlcheck_url)
+# urlcheck_url = 'https://fdfdfdfacebook.com'
+# check_url(urlcheck_url)
+
+print ('strip_url---------------------------------')
+url_strip_url = 'https://server.google.com'
+result = strip_url(url_strip_url)
+print result
+
+result = strip_url2(url_strip_url)
+print result
