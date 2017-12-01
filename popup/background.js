@@ -48,7 +48,7 @@ function check(url, call) {
         chrome.storage.local.set({'uuid': guid()}, function() {});
       }
       $.ajax({
-        url: "http://localhost:3000/api/check?url="+url+"&id="+uuid,
+        url: "http://54.202.123.8:3000/api/check?url="+url+"&id="+uuid,
         cache: false,
         success: function(response){
           if(response.message === 'phishing_detected') {
