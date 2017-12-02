@@ -9,7 +9,7 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
         chrome.notifications.create(url+guid(), {
           type: 'basic',
           iconUrl: 'lens.png',
-          title: "Phising attack detected",
+          title: "Phishing attack detected",
           message: url
         }, function(notificationId) {});
       }
