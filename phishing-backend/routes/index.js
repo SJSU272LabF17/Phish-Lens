@@ -4,7 +4,7 @@ var request = require('request');
 var app=express();
 
 
-var mysql = require('mysql')
+/*var mysql = require('mysql')
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -19,7 +19,7 @@ connection.connect(function(error){
     console.log("connected");
   }
     }
-);
+);*/
 
 /*app.get('/',function (req,resp) {
     connection.query("select *from admin", function (error, rows, fields) {

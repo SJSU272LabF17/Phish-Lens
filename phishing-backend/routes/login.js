@@ -1,39 +1,58 @@
 var express = require('express');
 var router = express.Router();
+var mysql=require("./index");
 
-router.post('/login', function (req, res, next) {
+var mysql = require('mysql')
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'root',
+    database : 'phishing'
+});
 
-    var reqUsername = req.body.EmailId;
-    var reqPassword = req.body.Password;
+connection.connect(function(error){
+        if(!!error){
+            console.log("error");
+        }else{
+            console.log("connected");
+        }
+    }
+);
 
-    var getUser = "SELECT * FROM admin WHERE emailid = '"+reqUsername+"' and password = '"+reqPassword+"'";
-    console.log("query is :" +getUser);
+exports.login = function(req,res) {
+    var reqUsername = req.body.username;
+    var reqPassword = req.body.password;
 
-    mysql.fetchData(function(err, result){
-        if(err){
+
+    var getUser = "SELECT * FROM admin WHERE email = 'saisupraja@gmail.com' and password = 'admin'";
+    console.log("query is :" + getUser);
+
+    connection.query(getUser, function (err, rows, fields) {
+
+        if (err) {
             throw err;
         }
-        else{
+        else {
             console.log('Valid Login');
             var getLogs = "SELECT * FROM logs WHERE isPhished=1";
-            console.log("query is :" +getLogs);
+            console.log("query is :" + getLogs);
 
-            mysql.fetchData(function(err, result){
-                if(err){
+            connection.query(getLogs, function (err, rows, fields) {
+                if (err) {
                     throw err;
                 }
-                else{
+                else {
                     console.log('Success');
 
                 }
 
-            },getLogs);
+            }, getLogs);
         }
 
-    },getUser);
+    }, getUser);
 
-});
 
+}
 module.exports = router;
 
 
