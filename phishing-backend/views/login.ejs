@@ -7,16 +7,17 @@
                 <th>Is Phished</th>
                 <th>Is Reported Phish</th>
                 <th>Date</th>
+                <th></th>
             </tr>
-            <% if(data.length){
+            <% if(logs.length){
 
-            for(var i = 0;i < data.length;i++) { %>
+            for(var i = 0;i < logs.length;i++) { %>
             <tr>
-                <td><%=data[i].clientId%></td>
-                <td><%=data[i].website%></td>
-                <td><%=data[i].isPhished%></td>
-                <td><%=data[i].isReportedPhish%></td>
-                <td><%=data[i].date%></td>
+                <td><%=logs[i].clientId%></td>
+                <td><%=logs[i].website%></td>
+                <td><%=logs[i].isPhished%></td>
+                <td><%=logs[i].isReportedPhish%></td>
+                <td><%=logs[i].date%></td>
                 <td>
                     <button type="submit" class="btn btn-warning btn-lg">Approve</button>
                 </td>
