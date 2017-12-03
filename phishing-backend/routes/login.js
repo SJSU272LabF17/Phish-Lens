@@ -1,24 +1,89 @@
 var express = require('express');
 var router = express.Router();
-var mysql=require("./index");
+var mysql=require("./mysql");
+var ejs = require("ejs");
 
-var mysql = require('mysql')
-var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'phishing'
-});
 
-connection.connect(function(error){
-        if(!!error){
-            console.log("error");
-        }else{
-            console.log("connected");
+function login(req,res)
+{
+    ejs.renderFile('./views/index.ejs',function(err,result){
+        // if it is success
+        if(!err)
+        {
+            res.end(result);
         }
-    }
-);
+        //ERROR
+        else
+        {
+            res.end("ERROR OCCURED ");
+            console.log(err);
+        }
+    });
+}
 
+function postlogin(req,res){
+    var username= req.body.username;
+    var password= req.body.password;
+
+    var getuser="select * from admin where email ='"+username+"' AND password='"+password+"'";
+    mysql.fetchData(function (err,result) {
+        if(err)
+        {
+            res.end("ERROR OCCURED ");
+            console.log(err);
+        }
+        else {
+            console.log("---------------get user query succesful -----");
+            if (result.length == 1) {
+                console.log("---------------user found -----");
+
+                var getlogs = "select * from logs where isPhished =1";
+                var logs = [];
+                mysql.fetchData(function (err, result) {
+                    if (result.length > 0) {
+
+                        console.log("---------------posts found -----");
+                        for (var i = 0; i < result.length; i++) {
+                            var log = {
+                                clientId: result[i].clientId,
+                                website: result[i].website,
+                                isPhished: result[i].isPhished,
+                                isReportedPhish: result[i].isReportedPhish,
+                                date: result[i].date
+
+                            }
+                            console.log("---------------logs found -----");
+                            logs.push(log);
+                        }
+
+                    }
+                    console.log("---------------posts query dones -----");
+                    ejs.renderFile('./views/login.ejs', {logs: logs}, function (err, result) {
+                        // if it is success
+                        if (!err) {
+                            res.end(result);
+                        }
+                        //ERROR
+                        else {
+                            res.end("ERROR OCCURED ");
+                            console.log(err);
+                        }
+                    });
+                }, getlogs)
+            }
+            else {
+                res.end("No user Found!!")
+            }
+        }
+
+    },getuser);
+}
+
+
+
+
+exports.login=login;
+exports.postlogin = postlogin;
 exports.login = function(req,res) {
     var reqUsername = req.body.username;
     var reqPassword = req.body.password;
