@@ -70,7 +70,7 @@ function check(url, call) {
       }
       updateTotalHitCount(function() {
         $.ajax({
-          url: "http://54.202.123.8/api/check?url="+url+"&id="+uuid,
+          url: "http://54.202.123.8:3000/api/check?url="+url+"&id="+uuid,
           cache: false,
           success: function(response){
             if(response.message === 'phishing_detected') {

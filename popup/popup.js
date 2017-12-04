@@ -45,7 +45,7 @@ $(function() {
   $('.report-phished').click(function() {
     $('.report-phished').css('display', 'none');
     $.ajax({
-      url: "http://54.202.123.8/api/report",
+      url: "http://54.202.123.8:3000/api/report",
       cache: false,
       method: 'POST',
       data: {'data' : $('#current_url').html()},
