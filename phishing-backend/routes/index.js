@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+var app=express();
 
 
+/*
 var mysql = require('mysql')
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -11,11 +13,33 @@ var connection = mysql.createConnection({
   database : 'phishing'
 });
 
+connection.connect(function(error){
+  if(!!error){
+    console.log("error");
+  }else{
+    console.log("connected");
+  }
+    }
+);
+*/
+
+/*app.get('/',function (req,resp) {
+    connection.query("select *from admin", function (error, rows, fields) {
+        if (!!error) {
+            console.log("error in query");
+        } else {
+            console.log("success\n");
+            console.log(rows);
+        }
+
+    })
+});*/
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
 
 router.get('/api/check', function(req, res, next) {
   console.log(req.query.id);
@@ -42,4 +66,5 @@ router.get('/api/check', function(req, res, next) {
   });
 })
 
+//app.listen(3001);
 module.exports = router;

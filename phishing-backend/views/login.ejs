@@ -1,0 +1,35 @@
+<div class="page-data">
+    <div class="data-table">
+        <table border="1" cellpadding="7" cellspacing="7">
+            <tr>
+                <th>Client Id</th>
+                <th>website</th>
+                <th>Is Phished</th>
+                <th>Is Reported Phish</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+            <% if(logs.length){
+
+            for(var i = 0;i < logs.length;i++) { %>
+            <tr>
+                <td><%=logs[i].clientId%></td>
+                <td><%=logs[i].website%></td>
+                <td><%=logs[i].isPhished%></td>
+                <td><%=logs[i].isReportedPhish%></td>
+                <td><%=logs[i].date%></td>
+                <td>
+                    <button type="submit" class="btn btn-warning btn-lg">Approve</button>
+                </td>
+            </tr>
+            <% }
+
+            }else{ %>
+            <tr>
+                <td colspan="3">No data</td>
+            </tr>
+            <% } %>
+
+        </table>
+    </div>
+</div>
