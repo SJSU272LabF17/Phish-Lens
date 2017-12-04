@@ -9,8 +9,10 @@
     <!-- Latest compiled JavaScript -->
     <script src="jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="jquery.min.js"></script>
+    <script src="toggle.min.js"></script>
+    <script src="popup.js"></script>
     <script src="background.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
   </head>
   <body style="overflow:hidden;">
@@ -21,13 +23,14 @@
       </div>
       <div class="detail-container">
         <div class="url">
-          <div id="current_url"> http://propertyshare.in </div>
+          <div id="current_url"> </div>
         </div>
         <div class="site-status-contianer">
           <div class="status-label"> Status </div>
           <div class="loading-container"> <img class="loading" src="loading.gif"/> </div>
           <div class="site-status-safe" style="display:none;"> <i class="fa fa-check-circle"></i> </div>
           <div class="site-status-unsafe" style="display:none;"> <i class="fa fa-times-circle"></i> </div>
+          <div class="app-switched-off text-center" style="display:none"> <img style="width:150px; height:110px" src="switched_off.png"></img></div>
         </div>
         <div class="site-status-contianer">
           <div class="analytics-title"> Analytics </div>
@@ -37,13 +40,9 @@
         <div class="action-contianer">
           <div>
             <div class="pull-left">
-              <div class="onoffswitch1">
-                <input type="checkbox" name="onoffswitch1" class="onoffswitch1-checkbox" id="myonoffswitch1" checked>
-                <label class="onoffswitch1-label" for="myonoffswitch1">
-                  <span class="onoffswitch1-inner"></span>
-                  <span class="onoffswitch1-switch"></span>
-                </label>
-              </div>
+              <label class="checkbox-inline">
+  <a class="listen-click"><input id="toggle-one" type="checkbox" checked data-toggle="toggle" checked="false"></a> Status
+</label>
             </div>
             <div class="pull-right">
               <button class="btn btn-success"> <i class="fa fa-flag"> </i> Report phishing </button>
