@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var app=express();
+var mysql=require("./mysql");
 
 
 /*
@@ -64,6 +65,19 @@ router.get('/api/check', function(req, res, next) {
       }
     }
   });
+})
+
+
+router.post('/api/report', function(req, res, next) {
+  console.log(req.body);
+  var insert="insert into reports (url) values ('"+req.body.data+"');";
+  mysql.fetchData(function(err, result) {
+    if(err) {
+      return res.status(200).json({'status': 500, 'message' : 'some error occoured, please try again later'});
+    } else {
+      return res.status(200).json({'status': 200, 'message' : 'Thanks for your feedback'});
+    }
+  },insert);
 })
 
 //app.listen(3001);

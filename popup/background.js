@@ -4,17 +4,21 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
     var parts = url.split("/");
     url = parts[0] + "//" + parts[2]+'/';
     var uuid;
-    check(url, function(isPhish) {
-      if(isPhish) {
-        updatePhisingHitCount(function() {
-          chrome.notifications.create(url+guid(), {
-            type: 'basic',
-            iconUrl: 'lens.png',
-            title: "Phishing attack detected",
-            message: url
-          }, function(notificationId) {});
-        })
+    chrome.storage.sync.get('phish_lens_app_status', function(result) {
+      if(result['phish_lens_app_status']) {
+        check(url, function(isPhish) {
+          if(isPhish) {
+            updatePhisingHitCount(function() {
+              chrome.notifications.create(url+guid(), {
+                type: 'basic',
+                iconUrl: 'lens.png',
+                title: "Phishing attack detected",
+                message: url
+              }, function(notificationId) {});
+            })
 
+          }
+        });
       }
     });
   }
@@ -30,7 +34,6 @@ chrome.tabs.query({
   url = parts[0] + "//" + parts[2]+'/';
   $('#current_url').text(url);
   chrome.storage.sync.get('phish_lens_app_status', function(result) {
-    console.log(result['phish_lens_app_status']);
     if(result['phish_lens_app_status']) {
       check(url, function(isPhish) {
         if(isPhish) {
@@ -67,7 +70,7 @@ function check(url, call) {
       }
       updateTotalHitCount(function() {
         $.ajax({
-          url: "http://54.202.123.8:3000/api/check?url="+url+"&id="+uuid,
+          url: "http://54.202.123.8/api/check?url="+url+"&id="+uuid,
           cache: false,
           success: function(response){
             if(response.message === 'phishing_detected') {

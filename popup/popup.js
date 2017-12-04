@@ -41,4 +41,22 @@ $(function() {
     });
     }
   })
+
+  $('.report-phished').click(function() {
+    $('.report-phished').css('display', 'none');
+    $.ajax({
+      url: "http://54.202.123.8/api/report",
+      cache: false,
+      method: 'POST',
+      data: {'data' : $('#current_url').html()},
+      success: function(response){
+        if(response.message === 'phishing_detected') {
+          call(true);
+        } else {
+          call(false);
+        }
+      }
+    });
+    $('.report-phished-message').html("Thanks for your feedback!");
+  })
 })

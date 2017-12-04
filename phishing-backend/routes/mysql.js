@@ -4,10 +4,9 @@ var mysql = require('mysql');
 
 function getConnection(){
     var connection = mysql.createConnection({
-
         host     : 'localhost',
         user     : 'root',
-        password : 'root',
+        password : '23489152prateek',
         database : 'phishing',
         port	 : 3306
 
@@ -56,4 +55,3 @@ function fetchData(callback,sqlQuery){
 }
 
 exports.fetchData=fetchData;
-
