@@ -6,17 +6,19 @@ chrome.tabs.onUpdated.addListener(function(tabid, changeinfo, tab) {
     var uuid;
     check(url, function(isPhish) {
       if(isPhish) {
-        chrome.notifications.create(url+guid(), {
-          type: 'basic',
-          iconUrl: 'lens.png',
-          title: "Phishing attack detected",
-          message: url
-        }, function(notificationId) {});
+        updatePhisingHitCount(function() {
+          chrome.notifications.create(url+guid(), {
+            type: 'basic',
+            iconUrl: 'lens.png',
+            title: "Phishing attack detected",
+            message: url
+          }, function(notificationId) {});
+        })
+
       }
     });
   }
 });
-
 
 
 chrome.tabs.query({
@@ -32,10 +34,12 @@ chrome.tabs.query({
     if(result['phish_lens_app_status']) {
       check(url, function(isPhish) {
         if(isPhish) {
-          $('.site-status-safe').css('display', 'none');
-          $('.site-status-unsafe').css('display', 'block');
-          $('.loading-container').css('display', 'none');
-          $('.app-switched-off').css('display', 'none');
+          updatePhisingHitCount(function() {
+            $('.site-status-safe').css('display', 'none');
+            $('.site-status-unsafe').css('display', 'block');
+            $('.loading-container').css('display', 'none');
+            $('.app-switched-off').css('display', 'none');
+          });
         } else {
           $('.site-status-safe').css('display', 'block');
           $('.site-status-unsafe').css('display', 'none');
@@ -44,36 +48,65 @@ chrome.tabs.query({
         }
       });
     } else {
-        $('.loading-container').css('display', 'none');
-        $('.site-status-unsafe').css('display', 'none');
-        $('.site-status-safe').css('display', 'none');
-        $('.app-switched-off').css('display', 'block');
+      $('.loading-container').css('display', 'none');
+      $('.site-status-unsafe').css('display', 'none');
+      $('.site-status-safe').css('display', 'none');
+      $('.app-switched-off').css('display', 'block');
     }
   });
 });
 
 function check(url, call) {
   var uuid;
-  if(url != 'chrome://newtab') {
+  if(url != 'chrome://newtab' && url != 'chrome://extensions/') {
     $('#current_url').html(url);
     chrome.storage.local.get('uuid', function(result){
       uuid = result.uuid;
       if(typeof(uuid) === 'undefined') {
         chrome.storage.local.set({'uuid': guid()}, function() {});
       }
-      $.ajax({
-        url: "http://54.202.123.8:3000/api/check?url="+url+"&id="+uuid,
-        cache: false,
-        success: function(response){
-          if(response.message === 'phishing_detected') {
-            call(true);
-          } else {
-            call(false);
+      updateTotalHitCount(function() {
+        $.ajax({
+          url: "http://54.202.123.8:3000/api/check?url="+url+"&id="+uuid,
+          cache: false,
+          success: function(response){
+            if(response.message === 'phishing_detected') {
+              call(true);
+            } else {
+              call(false);
+            }
           }
-        }
+        });
       });
     });
   }
+}
+
+function updateTotalHitCount(callback) {
+  chrome.storage.sync.get('total_hit_count', function(result) {
+    if(typeof(result.total_hit_count) !== 'undefined') {
+      var total_hit_count = result.total_hit_count;
+      total_hit_count+=1;
+      chrome.storage.sync.set({'total_hit_count': total_hit_count}, function() {});
+    } else {
+      chrome.storage.sync.set({'total_hit_count': 0}, function() {});
+      chrome.storage.sync.set({'total_phishing_hit_count': 0}, function() {});
+    }
+    callback();
+  });
+}
+
+function updatePhisingHitCount(callback) {
+  chrome.storage.sync.get('total_phishing_hit_count', function(result) {
+    if(typeof(result.total_phishing_hit_count) !== 'undefined') {
+      var total_phishing_hit_count = result.total_phishing_hit_count;
+      total_phishing_hit_count+=1;
+      chrome.storage.sync.set({'total_phishing_hit_count': total_phishing_hit_count}, function() {});
+    } else {
+      chrome.storage.sync.set({'total_phishing_hit_count': 0}, function() {});
+    }
+    callback();
+  });
 }
 
 function guid() {
