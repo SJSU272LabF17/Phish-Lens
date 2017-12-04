@@ -1,56 +1,56 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="popup.css"/>
-    <link rel="stylesheet" href="popup_new.css"/>
-    <link rel="stylesheet" href="switch.css"/>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <!-- Latest compiled JavaScript -->
-    <script src="jquery.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="toggle.min.js"></script>
-    <script src="popup.js"></script>
-    <script src="background.js"></script>
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<head>
+  <link rel="stylesheet" href="popup.css"/>
+  <link rel="stylesheet" href="popup_new.css"/>
+  <link rel="stylesheet" href="switch.css"/>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <!-- jQuery library -->
+  <!-- Latest compiled JavaScript -->
+  <script src="jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <script src="toggle.min.js"></script>
+  <script src="popup.js"></script>
+  <script src="background.js"></script>
+  <link href="bootstrap-toggle.min.css" rel="stylesheet">
 
-  </head>
-  <body style="overflow:hidden;">
-    <div id="wrapper">
-      <div class="logo-container">
-        <img src="lens.png" class="logo" />
-        <span class="popup-company"> Phishlens </span>
+</head>
+<body style="overflow:hidden;">
+  <div id="wrapper">
+    <div class="logo-container">
+      <img src="lens.png" class="logo" />
+      <span class="popup-company"> Phishlens </span>
+    </div>
+    <div class="detail-container">
+      <div class="url">
+        <div id="current_url"> </div>
       </div>
-      <div class="detail-container">
-        <div class="url">
-          <div id="current_url"> </div>
-        </div>
-        <div class="site-status-contianer">
-          <div class="status-label"> Status </div>
-          <div class="loading-container"> <img class="loading" src="loading.gif"/> </div>
-          <div class="site-status-safe" style="display:none;"> <i class="fa fa-check-circle"></i> </div>
-          <div class="site-status-unsafe" style="display:none;"> <i class="fa fa-times-circle"></i> </div>
-          <div class="app-switched-off text-center" style="display:none"> <img style="width:150px; height:110px" src="switched_off.png"></img></div>
-        </div>
-        <div class="site-status-contianer">
-          <div class="analytics-title"> Analytics </div>
-          <div class="total-hits-label analytics-labels"> Total Hits <span class="pull-right"> 12312312312</span> </div>
-          <div class="total-phished-label analytics-labels"> Phished website detected <span class="pull-right"> 312</span> </div>
-        </div>
-        <div class="action-contianer">
-          <div>
-            <div class="pull-left">
-              <label class="checkbox-inline">
-  <a class="listen-click"><input id="toggle-one" type="checkbox" checked data-toggle="toggle" checked="false"></a> Status
-</label>
-            </div>
-            <div class="pull-right">
-              <button class="btn btn-success"> <i class="fa fa-flag"> </i> Report phishing </button>
-            </div>
+      <div class="site-status-contianer">
+        <div class="status-label"> Status </div>
+        <div class="loading-container"> <img class="loading" src="loading.gif"/> </div>
+        <div class="site-status-safe" style="display:none;"> <i class="fa fa-check-circle"></i> </div>
+        <div class="site-status-unsafe" style="display:none;"> <i class="fa fa-times-circle"></i> </div>
+        <div class="app-switched-off text-center" style="display:none"> <img style="width:120px; height:110px" src="switched_off.png"></img></div>
+      </div>
+      <div class="site-status-contianer">
+        <div class="analytics-title"> Analytics </div>
+        <div class="total-hits-label analytics-labels"> Total Hits <span class="pull-right"> 12312312312</span> </div>
+        <div class="total-phished-label analytics-labels"> Phished website detected <span class="pull-right"> 312</span> </div>
+      </div>
+      <div class="action-contianer">
+        <div>
+          <div class="pull-left">
+            <label class="checkbox-inline">
+              <a class="listen-click"><input id="toggle-one" type="checkbox" checked data-toggle="toggle" checked="false"></a> App
+            </label>
           </div>
-          <div class="clearfix"> </div>
+          <div class="pull-right">
+            <button class="btn btn-success"> <i class="fa fa-flag"> </i> Report phishing </button>
+          </div>
         </div>
+        <div class="clearfix"> </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 </html>
