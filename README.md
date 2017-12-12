@@ -22,7 +22,7 @@ We identify that Google Chrome browser is a popular web browser and a Chrome ext
 
 The architecure diagram is as shown below 
 
-<img src="https://lh6.googleusercontent.com/7dh_DDffuNHG3KwBNtI5ZAMhCK0_m6jD_No95wFBnL4WAZ2-hqNAykvsvo7RuhPdtA0fU4Rfj9f2OBFLlxca=w1275-h703">
+<img src="https://lh4.googleusercontent.com/lbjQCEB4lDIuq_My4AT4FhfAorPfZ0jtPRoulQaq2zG_-iqKk9skXZoTIgpq6LTX75RzKw0vx6VpR-aLwHVy=w1275-h703">
 
 <h1> Implementation </h1>
 
@@ -33,11 +33,11 @@ already reported as a phishing site in their database or not. If it is not in th
 
 <h1> Machine Learning rules </h1>
 
-<img src="https://lh5.googleusercontent.com/Z_U6ExcCkGcdmRRd91FfZdknDRzrOldQoOi7ypuUP3aZsYBKcnQCO29c5E8ABnguSNBeJMTm12kSsRpbpG-x=w1275-h703">
+<img src="https://lh6.googleusercontent.com/VsrlRTJzQnZpCyxTiW1GS4zt3R-9bo2Kw2or85liHFwVCUGlutDCu6qE6qHFxKJDywykJf5cIGkkFtbHuTvA=w1275-h703">
 
-<img src="https://lh6.googleusercontent.com/7-oq4E1PN4FpKTf4i3YxP6rv1NTvBQLXrTfJOHJ3bUVwZPNDF7IJ9Hvq8ZOx-DGB53fvEgNyNbC6TYknnQNK=w1275-h703">
+<img src="https://lh6.googleusercontent.com/3Ox6RSHPbQARt3t8TS2v4aEDENw5UgZv0x_nrwUDl4KrFTcOL0ZIORhex7ihAmvdQ-pjaMeVTtUfmjOP4F_9=w1275-h703">
 
-<img src="https://lh5.googleusercontent.com/_O-54x8TReLlL56f0UZG3mZJ838ipkHMGK0mAiFIwXuaV2Cc4xkG8R3vUIk-wwvkWwrk4wXcl729FoT9LUZc=w1275-h703">
+<img src="https://lh5.googleusercontent.com/OZfs7vT5S8NpEibR1K97GWT2RbKFaytDs05g8kOyMmzKfeOYcyIHq4opcu4PqePPrJRHKyrvrO5uH2jval9R=w1275-h703">
 
 For example:
 https://account-security-system.cf/recovery-chekpoint-login.html
