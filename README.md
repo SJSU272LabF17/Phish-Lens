@@ -4,7 +4,7 @@ A machine learning enabled chrome extension to smartly identify possible phished
 
 Get the chrome extesnion <a href ="https://chrome.google.com/webstore/detail/phish-lens/omcddbobcimeodadbojljnnodfmmkhme">here</a>. 
 
-<a href ="https://chrome.google.com/webstore/detail/phish-lens/omcddbobcimeodadbojljnnodfmmkhme"> <img src="https://lh6.googleusercontent.com/eER1zqe2C9OclD0jOQ6HEHBabVMHbrbHPTqqDTYtFfd_0A2BgfLPP6trKE0JBUFdgAWfCCa3V9QAyesFAgTx=w1275-h703"> </a>
+<a href ="https://chrome.google.com/webstore/detail/phish-lens/omcddbobcimeodadbojljnnodfmmkhme"> <img src="https://lh4.googleusercontent.com/6dccMMMP6I0nyS3G4i3nkOidQHaOVTV16yD0mcKy-xZ--bD-uFmp6UXZswXzBg7ZEHPzKBrVnF383n5qpQzA=w1275-h703"> </a>
 
 <h1> What is Phishing? </h1>
 
