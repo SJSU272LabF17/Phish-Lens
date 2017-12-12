@@ -37,7 +37,7 @@ already reported as a phishing site in their database or not. If it is not in th
 
 <img src="https://lh6.googleusercontent.com/3Ox6RSHPbQARt3t8TS2v4aEDENw5UgZv0x_nrwUDl4KrFTcOL0ZIORhex7ihAmvdQ-pjaMeVTtUfmjOP4F_9=w1275-h703">
 
-<img src="https://lh5.googleusercontent.com/OZfs7vT5S8NpEibR1K97GWT2RbKFaytDs05g8kOyMmzKfeOYcyIHq4opcu4PqePPrJRHKyrvrO5uH2jval9R=w1275-h703">
+<img src="https://lh3.googleusercontent.com/I_CZrgxKJzCePE7li9EpuLhRY0wWhulEOtADq1vGT-cjRAXj29J3QbvuUUdL_33jDtm0_y2RaRb0fKJ03oJf=w1275-h703">
 
 For example:
 https://account-security-system.cf/recovery-chekpoint-login.html
@@ -68,3 +68,12 @@ We would like to thank Professor Rakesh Ranjan, Dept. of Computer Software Engin
 
 * Sara Radicati, PhD; Principal Analyst: Justin Levenstein. Statistics Report 2013-2017.The Radicati Group, Inc. A Technology Market Research Firm.
 
+<h1> Contributors </h1>
+
+* Rudy Wahjudi
+
+* Sai Supraja Malla
+
+* Kajal Agarwal 
+
+* Prateek Sharma
